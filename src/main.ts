@@ -16,6 +16,8 @@ app.use(compress());
 app.use(httpLogger());
 app.use(trimTrailingSlash());
 
+app.get('/', (c) => c.text('Hello World'));
+
 
 if (env.NODE_ENV === "development") {
     console.log('Available routes:');
@@ -23,6 +25,7 @@ if (env.NODE_ENV === "development") {
 }
 
 const server = serve({ fetch: app.fetch, port: env.PORT });
+logger.info(`Server is running on port: ${ env.PORT }, env: ${ env.NODE_ENV }`);
 
 process.on('SIGTERM', () => {
     logger.info('SIGTERM signal received');
